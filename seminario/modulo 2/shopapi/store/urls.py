@@ -2,15 +2,15 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
-from store.views.health import health_check
-from store.views.auth   import RegisterView, LogoutView
-from store.views.user   import UserViewSet
+from store.views.health   import health_check
+from store.views.auth     import RegisterView, LogoutView
+from store.views.user     import UserViewSet
 from store.views.category import CategoryViewSet
 from store.serializers.auth import CustomTokenView
 
 router = DefaultRouter()
-router.register('users', UserViewSet, basename='user')
-router.register('categories', CategoryViewSet, basename='category')
+router.register('users',      UserViewSet,      basename='user')
+router.register('categories', CategoryViewSet,  basename='category')
 
 urlpatterns = [
     path('health/',             health_check),
