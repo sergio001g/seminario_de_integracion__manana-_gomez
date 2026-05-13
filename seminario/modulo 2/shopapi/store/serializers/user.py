@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
+
 class RegisterSerializer(serializers.Serializer):
     username  = serializers.CharField(max_length=150)
     email     = serializers.EmailField()
@@ -26,16 +27,24 @@ class RegisterSerializer(serializers.Serializer):
         validated_data.pop('password2')
         return User.objects.create_user(**validated_data)
 
+
 class UserSerializer(serializers.ModelSerializer):
+    num_orders = serializers.SerializerMethodField()
+
     class Meta:
         model  = User
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'is_staff', 'is_active', 'date_joined',
+            'is_staff', 'is_active', 'date_joined', 'num_orders',
         ]
         read_only_fields = ['id', 'date_joined']
 
+    def get_num_orders(self, obj):
+        return obj.orders.count()
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
+
     class Meta:
         model  = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name']
@@ -46,6 +55,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=value).exclude(pk=request.user.pk).exists():
             raise serializers.ValidationError('This email is already in use.')
         return value
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     current_password = serializers.CharField(write_only=True)
