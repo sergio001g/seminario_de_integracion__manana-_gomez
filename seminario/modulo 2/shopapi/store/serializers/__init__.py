@@ -6,3 +6,4 @@ from .user     import (
     ChangePasswordSerializer,
 )
 from .category import CategorySerializer
+from .product  import ProductSerializer, ProductSummarySerializer
