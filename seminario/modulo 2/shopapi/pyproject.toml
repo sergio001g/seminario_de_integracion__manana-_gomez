@@ -1,0 +1,15 @@
+[project]
+name = "shopapi"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django<5.0",
+    "django-cors-headers",
+    "django-filter<25.0",
+    "djangorestframework",
+    "djangorestframework-simplejwt",
+    "psycopg2-binary",
+    "python-decouple",
+]
